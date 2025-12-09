@@ -31,6 +31,19 @@
         color: #ffffff;
       }
 
+      .loading {
+        background-color: #ffff00;
+        color: #000000;
+      }
+
+      .loading-gif {
+        max-width: 80vw;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        display: block;
+      }
+
       .text {
         font-size: 20vw;
         font-weight: bold;
@@ -38,29 +51,98 @@
         user-select: none;
       }
 
+      .timestamp {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 12px;
+        font-size: 14px;
+        font-weight: normal;
+        border-radius: 4px;
+        font-family: monospace;
+        z-index: 1000;
+        display: none;
+      }
+
       @media (max-width: 768px) {
         .text {
           font-size: 25vw;
+        }
+        .timestamp {
+          font-size: 12px;
+          padding: 6px 10px;
         }
       }
     </style>
   </head>
   <body class="yes">
     <div class="text" id="text">YES</div>
+    <div class="timestamp" id="timestamp"></div>
 
     <script>
-      let showNoPage = false;
+      let showLoadingScreen = false;
+
+      function formatTimestampMST() {
+        const now = new Date();
+        const options = {
+          timeZone: "America/Denver",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        };
+
+        const formatter = new Intl.DateTimeFormat("en-US", options);
+        const parts = formatter.formatToParts(now);
+
+        const month = parts.find((p) => p.type === "month").value;
+        const day = parts.find((p) => p.type === "day").value;
+        const year = parts.find((p) => p.type === "year").value;
+        const hour = parts.find((p) => p.type === "hour").value;
+        const minute = parts.find((p) => p.type === "minute").value;
+        const second = parts.find((p) => p.type === "second").value;
+        const dayPeriod = parts.find((p) => p.type === "dayPeriod").value;
+
+        const isDST =
+          new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/Denver",
+            timeZoneName: "short",
+          })
+            .formatToParts(now)
+            .find((p) => p.type === "timeZoneName").value === "MDT";
+
+        const timezone = isDST ? "MDT" : "MST";
+
+        return `${month}/${day}/${year} ${hour}:${minute}:${second} ${dayPeriod} ${timezone}`;
+      }
 
       function setPage() {
         const body = document.body;
         const text = document.getElementById("text");
+        const timestamp = document.getElementById("timestamp");
 
-        if (showNoPage) {
-          body.className = "no";
-          text.textContent = "NO";
+        if (showLoadingScreen) {
+          body.className = "loading";
+          text.innerHTML =
+            '<img src="new_life_loading.GIF" alt="Loading..." class="loading-gif">';
+
+          timestamp.style.display = "block";
+          timestamp.textContent = `Last Updated At: ${formatTimestampMST()}`;
+
+          setTimeout(() => {
+            body.className = "no";
+            text.textContent = "NO";
+            timestamp.style.display = "none";
+          }, 60 * 60 * 24 * 1000); // 24 hours
         } else {
           body.className = "yes";
           text.textContent = "YES";
+          timestamp.style.display = "none";
         }
       }
 

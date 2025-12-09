@@ -1,0 +1,41 @@
+name: Auto Commit Changes
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make changes to files
+        run: |
+          # Toggle showLoadingScreen boolean in index.html
+          if grep -q "showLoadingScreen = false" index.html; then
+            sed -i 's/showLoadingScreen = false/showLoadingScreen = true/g' index.html
+            echo "Changed showLoadingScreen from false to true"
+          elif grep -q "showLoadingScreen = true" index.html; then
+            sed -i 's/showLoadingScreen = true/showLoadingScreen = false/g' index.html
+            echo "Changed showLoadingScreen from true to false"
+          else
+            echo "showLoadingScreen variable not found in expected format"
+          fi
+
+          # Add update log entry
+          echo "Updated at $(date)" >> update-log.txt
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Auto-update: Toggle showLoadingScreen ($(date))" || echo "No changes to commit"
+          git push
