@@ -1,12 +1,11 @@
 name: Auto Commit Changes
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   commit:
@@ -39,3 +38,18 @@ jobs:
           git add .
           git commit -m "Auto-update: Toggle showLoadingScreen ($(date))" || echo "No changes to commit"
           git push
+
+  deploy:
+    needs: commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: 'main'
+            })
