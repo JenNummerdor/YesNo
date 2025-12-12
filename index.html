@@ -96,6 +96,26 @@
         display: none;
       }
 
+      .meal-train {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 12px;
+        font-size: 14px;
+        font-weight: normal;
+        border-radius: 4px;
+        font-family: monospace;
+        z-index: 1000;
+        display: none;
+      }
+
+      .meal-train a {
+        color: white;
+        text-decoration: underline;
+      }
+
       @media (max-width: 768px) {
         .text {
           font-size: 25vw;
@@ -104,12 +124,24 @@
           font-size: 12px;
           padding: 6px 10px;
         }
+        .meal-train {
+          font-size: 12px;
+          padding: 6px 10px;
+        }
       }
     </style>
   </head>
   <body class="yes">
     <div class="text" id="text">YES</div>
-    <div class="timestamp" id="timestamp">Last updated: {{DEPLOY_TIMESTAMP}}</div>
+    <div class="timestamp" id="timestamp">
+      Last updated: {{DEPLOY_TIMESTAMP}}
+    </div>
+    <div class="meal-train" id="meal-train">
+      Meal Train:
+      <a href="https://www.mealtrain.com/trains/kyvl2r" target="_blank"
+        >https://www.mealtrain.com/trains/kyvl2r</a
+      >
+    </div>
 
     <script>
       // Possible values: "yes", "loading", "no"
@@ -119,20 +151,24 @@
         const body = document.body;
         const text = document.getElementById("text");
         const timestamp = document.getElementById("timestamp");
+        const mealTrain = document.getElementById("meal-train");
 
         if (CURRENT_STATE === "loading") {
           body.className = "loading";
           text.innerHTML =
             '<img src="new_life_loading.GIF" alt="Loading..." class="loading-gif">';
           timestamp.style.display = "block";
+          mealTrain.style.display = "block";
         } else if (CURRENT_STATE === "no") {
           body.className = "no";
           text.textContent = "NO";
           timestamp.style.display = "block";
+          mealTrain.style.display = "block";
         } else {
           body.className = "yes";
           text.textContent = "YES";
           timestamp.style.display = "block";
+          mealTrain.style.display = "block";
         }
       }
 
