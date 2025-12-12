@@ -82,63 +82,23 @@
     <div class="timestamp" id="timestamp"></div>
 
     <script>
-      let showLoadingScreen = false;
-
-      function formatTimestampMST() {
-        const now = new Date();
-        const options = {
-          timeZone: "America/Denver",
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        };
-
-        const formatter = new Intl.DateTimeFormat("en-US", options);
-        const parts = formatter.formatToParts(now);
-
-        const month = parts.find((p) => p.type === "month").value;
-        const day = parts.find((p) => p.type === "day").value;
-        const year = parts.find((p) => p.type === "year").value;
-        const hour = parts.find((p) => p.type === "hour").value;
-        const minute = parts.find((p) => p.type === "minute").value;
-        const second = parts.find((p) => p.type === "second").value;
-        const dayPeriod = parts.find((p) => p.type === "dayPeriod").value;
-
-        const isDST =
-          new Intl.DateTimeFormat("en-US", {
-            timeZone: "America/Denver",
-            timeZoneName: "short",
-          })
-            .formatToParts(now)
-            .find((p) => p.type === "timeZoneName").value === "MDT";
-
-        const timezone = isDST ? "MDT" : "MST";
-
-        return `${month}/${day}/${year} ${hour}:${minute}:${second} ${dayPeriod} ${timezone}`;
-      }
+      // Possible values: "yes", "loading", "no"
+      const CURRENT_STATE = "yes";
 
       function setPage() {
         const body = document.body;
         const text = document.getElementById("text");
         const timestamp = document.getElementById("timestamp");
 
-        if (showLoadingScreen) {
+        if (CURRENT_STATE === "loading") {
           body.className = "loading";
           text.innerHTML =
             '<img src="new_life_loading.GIF" alt="Loading..." class="loading-gif">';
-
-          timestamp.style.display = "block";
-          timestamp.textContent = `Last Updated At: ${formatTimestampMST()}`;
-
-          setTimeout(() => {
-            body.className = "no";
-            text.textContent = "NO";
-            timestamp.style.display = "none";
-          }, 60 * 60 * 24 * 1000); // 24 hours
+          timestamp.style.display = "none";
+        } else if (CURRENT_STATE === "no") {
+          body.className = "no";
+          text.textContent = "NO";
+          timestamp.style.display = "none";
         } else {
           body.className = "yes";
           text.textContent = "YES";
