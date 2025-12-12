@@ -3,7 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Yes or No</title>
+    <title>Is Jen Still Pregnant?</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Check to see if the bun is still in the oven!"
+    />
+    <meta
+      name="keywords"
+      content="pregnancy, expecting, baby, family, updates"
+    />
+    <meta name="author" content="OJ" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Is Jen Still Pregnant?" />
+    <meta
+      property="og:description"
+      content="Check to see if the bun is still in the oven!"
+    />
+    <meta property="og:site_name" content="Is Jen Still Pregnant?" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤰</text></svg>"
+    />
+
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#00ff00" />
+    <meta name="msapplication-TileColor" content="#00ff00" />
     <style>
       * {
         margin: 0;
@@ -79,7 +109,7 @@
   </head>
   <body class="yes">
     <div class="text" id="text">YES</div>
-    <div class="timestamp" id="timestamp"></div>
+    <div class="timestamp" id="timestamp">Last updated: {{DEPLOY_TIMESTAMP}}</div>
 
     <script>
       // Possible values: "yes", "loading", "no"
@@ -94,15 +124,15 @@
           body.className = "loading";
           text.innerHTML =
             '<img src="new_life_loading.GIF" alt="Loading..." class="loading-gif">';
-          timestamp.style.display = "none";
+          timestamp.style.display = "block";
         } else if (CURRENT_STATE === "no") {
           body.className = "no";
           text.textContent = "NO";
-          timestamp.style.display = "none";
+          timestamp.style.display = "block";
         } else {
           body.className = "yes";
           text.textContent = "YES";
-          timestamp.style.display = "none";
+          timestamp.style.display = "block";
         }
       }
 
