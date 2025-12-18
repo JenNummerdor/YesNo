@@ -70,11 +70,25 @@
         display: block;
       }
 
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
       .text {
         font-size: 20vw;
         font-weight: bold;
         text-align: center;
         user-select: none;
+      }
+
+      .still {
+        font-size: 3vw;
+        font-weight: bold;
+        text-align: center;
+        user-select: none;
+        display: none;
       }
 
       .timestamp {
@@ -128,7 +142,10 @@
     </style>
   </head>
   <body class="yes">
-    <div class="text" id="text">YES</div>
+    <div class="content">
+      <div class="text" id="text">YES</div>
+      <div class="still" id="still">still</div>
+    </div>
     <div class="timestamp" id="timestamp">
       Last updated: {{DEPLOY_TIMESTAMP}}
     </div>
@@ -148,6 +165,7 @@
         const text = document.getElementById("text");
         const timestamp = document.getElementById("timestamp");
         const mealTrain = document.getElementById("meal-train");
+        const still = document.getElementById("still");
 
         if (CURRENT_STATE === "loading") {
           body.className = "loading";
@@ -155,16 +173,19 @@
             '<img src="new_life_loading.GIF" alt="Loading..." class="loading-gif">';
           timestamp.style.display = "block";
           mealTrain.style.display = "block";
+          still.style.display = "none";
         } else if (CURRENT_STATE === "no") {
           body.className = "no";
           text.textContent = "NO";
           timestamp.style.display = "block";
           mealTrain.style.display = "block";
+          still.style.display = "none";
         } else {
           body.className = "yes";
           text.textContent = "YES";
           timestamp.style.display = "block";
           mealTrain.style.display = "block";
+          still.style.display = "block";
         }
       }
 
