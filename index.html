@@ -91,6 +91,15 @@
         display: none;
       }
 
+      .loading-text {
+        font-size: 3vw;
+        font-weight: bold;
+        text-align: center;
+        user-select: none;
+        display: none;
+        margin-top: 3vw;
+      }
+
       .timestamp {
         position: fixed;
         top: 10px;
@@ -145,9 +154,9 @@
     <div class="content">
       <div class="text" id="text">YES</div>
       <div class="still" id="still">
-        <div>Yes the due date is today.</div>
-        <div>No she is still not here yet.</div>
+        <div>Happy Solstice!</div>
       </div>
+      <div class="loading-text" id="loading-text">(this means labor)</div>
     </div>
     <div class="timestamp" id="timestamp">
       Last updated: {{DEPLOY_TIMESTAMP}}
@@ -169,6 +178,7 @@
         const timestamp = document.getElementById("timestamp");
         const mealTrain = document.getElementById("meal-train");
         const still = document.getElementById("still");
+        const loadingText = document.getElementById("loading-text");
 
         if (CURRENT_STATE === "loading") {
           body.className = "loading";
@@ -177,18 +187,21 @@
           timestamp.style.display = "block";
           mealTrain.style.display = "block";
           still.style.display = "none";
+          loadingText.style.display = "block";
         } else if (CURRENT_STATE === "no") {
           body.className = "no";
           text.textContent = "NO";
           timestamp.style.display = "block";
           mealTrain.style.display = "block";
           still.style.display = "none";
+          loadingText.style.display = "none";
         } else {
           body.className = "yes";
           text.textContent = "YES";
           timestamp.style.display = "block";
           mealTrain.style.display = "block";
           still.style.display = "block";
+          loadingText.style.display = "none";
         }
       }
 
