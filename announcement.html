@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birth Announcement</title>
+
+    <meta name="description" content="Welcome to the world, little one!" />
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Georgia, "Times New Roman", serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+        color: #4a4a4a;
+        padding: 40px 20px;
+      }
+
+      .back-arrow {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        text-decoration: none;
+        color: #4a4a4a;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px 15px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+        z-index: 1000;
+      }
+
+      .back-arrow:hover {
+        background: rgba(255, 255, 255, 1);
+      }
+
+      .announcement {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .intro {
+        font-size: 1.3rem;
+        font-style: italic;
+        margin-bottom: 30px;
+        color: #666;
+      }
+
+      .baby-name {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #d4739a;
+        margin-bottom: 25px;
+        letter-spacing: 2px;
+      }
+
+      .photo-container {
+        margin: 30px 0;
+      }
+
+      .baby-photo {
+        max-width: 100%;
+        max-height: 400px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .photo-placeholder {
+        width: 300px;
+        height: 300px;
+        background: #e0e0e0;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        color: #888;
+        font-style: italic;
+      }
+
+      .details {
+        font-size: 1.1rem;
+        line-height: 2;
+        margin-bottom: 25px;
+      }
+
+      .parents {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        color: #555;
+      }
+
+      .message {
+        font-size: 1.1rem;
+        font-style: italic;
+        line-height: 1.8;
+        color: #666;
+      }
+
+      @media (max-width: 768px) {
+        .announcement {
+          padding: 25px;
+        }
+
+        .baby-name {
+          font-size: 1.8rem;
+        }
+
+        .intro,
+        .details,
+        .message {
+          font-size: 1rem;
+        }
+
+        .photo-placeholder {
+          width: 250px;
+          height: 250px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" class="back-arrow" title="Back to main page">&larr;</a>
+
+    <div class="announcement">
+      <p class="intro">
+        We're thrilled to announce the arrival of the cutest baby in the entire
+        universe! We might be slightly biased.
+      </p>
+
+      <h1 class="baby-name">Ofelia Lou Sandoval</h1>
+
+      <div class="photo-container">
+        <img src="baby.jpg" alt="Ofelia Lou Sandoval" class="baby-photo" />
+      </div>
+
+      <div class="details">
+        Born on [Date] at [Time]<br />
+        Weighing [Weight] and measuring [Length]
+      </div>
+
+      <p class="parents">Proud parents: Jen & Oscar Sandoval</p>
+
+      <p class="message">
+        Ofelia (we changed the spelling!) has filled our hearts with joy and our
+        home with love. We can't wait for you to meet our little one!
+      </p>
+    </div>
+  </body>
+</html>

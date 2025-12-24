@@ -135,6 +135,25 @@
         text-decoration: underline;
       }
 
+      .more-info {
+        font-size: 1.5vw;
+        margin-top: 2vw;
+        text-decoration: underline;
+        cursor: pointer;
+        display: none;
+      }
+
+      .more-info a {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .more-info {
+          font-size: 4vw;
+        }
+      }
+
       @media (max-width: 768px) {
         .text {
           font-size: 25vw;
@@ -154,10 +173,13 @@
     <div class="content">
       <div class="text" id="text">YES</div>
       <div class="still" id="still">
-        <div>Nothing new to report today!</div>
+        <div>All I want for Christmas is this baby to arrive!</div>
         <div>Our phones are still off. Merry Christmas Eve! 🎄</div>
       </div>
       <div class="loading-text" id="loading-text">(this means labor)</div>
+      <div class="more-info" id="more-info">
+        <a href="announcement.html">Click here for more info!</a>
+      </div>
     </div>
     <div class="timestamp" id="timestamp">
       Last updated: {{DEPLOY_TIMESTAMP}}
@@ -180,6 +202,7 @@
         const mealTrain = document.getElementById("meal-train");
         const still = document.getElementById("still");
         const loadingText = document.getElementById("loading-text");
+        const moreInfo = document.getElementById("more-info");
 
         if (CURRENT_STATE === "loading") {
           body.className = "loading";
@@ -189,6 +212,7 @@
           mealTrain.style.display = "block";
           still.style.display = "none";
           loadingText.style.display = "block";
+          moreInfo.style.display = "none";
         } else if (CURRENT_STATE === "no") {
           body.className = "no";
           text.textContent = "NO";
@@ -196,6 +220,7 @@
           mealTrain.style.display = "block";
           still.style.display = "none";
           loadingText.style.display = "none";
+          moreInfo.style.display = "block";
         } else {
           body.className = "yes";
           text.textContent = "YES";
@@ -203,6 +228,7 @@
           mealTrain.style.display = "block";
           still.style.display = "block";
           loadingText.style.display = "none";
+          moreInfo.style.display = "none";
         }
       }
 
